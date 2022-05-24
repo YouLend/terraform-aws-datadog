@@ -59,9 +59,9 @@ POLICY
   }
 
   lifecycle_rule {
-    id      = "log"
-    enabled = true
-
+    abort_incomplete_multipart_upload_days = 7
+    enabled                                = true
+    id                                     = "rax-cleanup-incomplete-mpu-objects"
     tags = {
       "rule"      = "log"
       "autoclean" = "true"
