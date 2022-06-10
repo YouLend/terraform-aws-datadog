@@ -19,9 +19,9 @@ variable "cloudtrail_bucket_arn" {
   default     = ""
 }
 variable "excluded_rds_arn" {
-  type        = list(string)
-  description = "The List of ARNs for the RDS that shouldn't be monitored"
-  default     = []
+  type        = string
+  description = "The List of ARNs for the RDS that shouldn't be monitored."
+  default     = ""
 
 }
 variable "datadog_api_key" {
