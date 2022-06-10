@@ -102,8 +102,6 @@ resource "aws_iam_policy" "datadog-core" {
         "logs:DeleteSubscriptionFilter",
         "logs:DescribeSubscriptionFilters",
         "organizations:DescribeOrganization",
-        "rds:Describe*",
-        "rds:List*",
         "redshift:DescribeClusters",
         "redshift:DescribeLoggingStatus",
         "route53:List*",
@@ -132,6 +130,36 @@ resource "aws_iam_policy" "datadog-core" {
   ]
 }
 EOF
+}
+
+resource "aws_iam_policy" "datadog-rds-monitoring" {
+  count       = var.enable_datadog_aws_integration ? 1 : 0
+  name        = "datadog-rds-monitroing"
+  path        = "/"
+  description = "This IAM policy allows for rds monitoring datadog permissions"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "rds:DescribeDBInstances",
+        "rds:ListTagsForResource",
+        "rds:DescribeEvents"
+      ],
+      "Effect": "Allow",
+      "NotResource": "${var.rexcluded_rds_arn}"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "datadog-rds-monitoring-attach" {
+  count      = var.enable_datadog_aws_integration ? 1 : 0
+  role       = aws_iam_role.datadog-integration[0].name
+  policy_arn = aws_iam_policy.datadog-rds-monitoring[0].arn
 }
 
 resource "aws_iam_role_policy_attachment" "datadog-core-attach" {
