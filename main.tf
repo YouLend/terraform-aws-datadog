@@ -142,26 +142,26 @@ resource "aws_iam_policy" "rds-datadog-policy" {
   path        = "/"
   description = "This IAM policy allows for rds datadog integration permissions"
 
-  policy = <<EOF
+  policy = jsonencode(
 {
-  "Version": "2012-10-17",
-  "Statement": [
+  Version: "2012-10-17"
+  Statement: [
     {
-      "Action": [
+      Action: [
         "rds:DescribeDBInstances",
         "rds:DescribeDBClusters",
         "rds:ListTagsForResource",
         "rds:DescribeEvents",
 
       ],
-      "Effect": "Allow",
-      "NotResource": [
-        ${jsonencode(var.exluded_rds_regions)}
+      Effect: "Allow"
+      NotResource: [
+        jsonencode(var.exluded_rds_regions)
       ]
     }
   ]
-}
-EOF
+})
+
 }
 
 resource "aws_iam_role_policy_attachment" "datadog-core-attach" {
