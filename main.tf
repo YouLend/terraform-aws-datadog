@@ -136,6 +136,34 @@ resource "aws_iam_policy" "datadog-core" {
 EOF
 }
 
+resource "aws_iam_policy" "rds-datadog-policy" {
+  count       = var.enable_datadog_aws_integration ? 1 : 0
+  name        = "rds-datadog-integration"
+  path        = "/"
+  description = "This IAM policy allows for rds datadog integration permissions"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "rds:DescribeDBInstances",
+        "rds:DescribeDBClusters",
+        "rds:ListTagsForResource",
+        "rds:DescribeEvents",
+
+      ],
+      "Effect": "Allow",
+      "NotResource": [
+        ${jsonencode(var.exluded_rds_regions)}
+      ]
+    }
+  ]
+}
+EOF
+}
+
 resource "aws_iam_role_policy_attachment" "datadog-core-attach" {
   count      = var.enable_datadog_aws_integration ? 1 : 0
   role       = aws_iam_role.datadog-integration[0].name

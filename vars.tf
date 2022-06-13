@@ -98,3 +98,9 @@ variable "extra_policy_arns" {
   type        = list(string)
   default     = []
 }
+
+variable "exluded_rds_regions" {
+  description = "exluded rds databases that should not be monitored"
+  type        = list(string)
+  default     = [""]
+}
