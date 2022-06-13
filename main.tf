@@ -150,7 +150,10 @@ resource "aws_iam_policy" "datadog-rds-monitoring" {
         "rds:DescribeEvents",
       ],
       "Effect": "Allow",
-      "NotResource": ["${var.excluded_rds_db_arn}","${var.excluded_rds_cluster_arn}"]
+      "NotResource": [
+        "${var.excluded_rds_db_arn}",
+        "${var.excluded_rds_cluster_arn}"
+      ]
     }
   ]
 }
