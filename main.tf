@@ -155,9 +155,7 @@ resource "aws_iam_policy" "rds-datadog-policy" {
 
       ],
       Effect: "Allow"
-      NotResource: [
-        jsonencode(var.exluded_rds_regions)
-      ]
+      NotResource: var.exluded_rds_regions
     }
   ]
 })
