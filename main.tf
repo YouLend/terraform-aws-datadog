@@ -145,8 +145,9 @@ resource "aws_iam_policy" "datadog-rds-monitoring" {
     {
       "Action": [
         "rds:DescribeDBInstances",
+        "rds:DescribeDBClusters",
         "rds:ListTagsForResource",
-        "rds:DescribeEvents"
+        "rds:DescribeEvents",
       ],
       "Effect": "Allow",
       "NotResource": "${var.excluded_rds_arn}"
