@@ -145,15 +145,12 @@ resource "aws_iam_policy" "datadog-rds-monitoring" {
     {
       "Action": [
         "rds:DescribeDBInstances",
-        "rds:DescribeDBClusters",
         "rds:ListTagsForResource",
         "rds:DescribeEvents",
+        "rds:DescribeDBClusters"
       ],
       "Effect": "Allow",
-      "NotResource": [
-        "arn:aws:rds:eu-west-1:902371465413:db:db-uat-*",
-        "arn:aws:rds:eu-west-1:902371465413:cluster:db-uat-*"
-      ]
+      "Resource": "arn:aws:rds:eu-west-1:902371465413:db:db-uat-*"
     }
   ]
 }
