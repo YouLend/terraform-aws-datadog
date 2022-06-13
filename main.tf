@@ -151,8 +151,8 @@ resource "aws_iam_policy" "datadog-rds-monitoring" {
       ],
       "Effect": "Allow",
       "NotResource": [
-        "${var.excluded_rds_db_arn}",
-        "${var.excluded_rds_cluster_arn}"
+        "arn:aws:rds:eu-west-1:902371465413:db:db-uat-*",
+        "arn:aws:rds:eu-west-1:902371465413:cluster:db-uat-*"
       ]
     }
   ]
