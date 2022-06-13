@@ -104,8 +104,6 @@ resource "aws_iam_policy" "datadog-core" {
         "logs:DeleteSubscriptionFilter",
         "logs:DescribeSubscriptionFilters",
         "organizations:DescribeOrganization",
-        "rds:Describe*",
-        "rds:List*",
         "redshift:DescribeClusters",
         "redshift:DescribeLoggingStatus",
         "route53:List*",
@@ -155,7 +153,7 @@ resource "aws_iam_policy" "rds-datadog-policy" {
 
       ],
       Effect: "Allow"
-      NotResource: var.exluded_rds_regions
+      NotResource: var.excluded_rds
     }
   ]
 })
