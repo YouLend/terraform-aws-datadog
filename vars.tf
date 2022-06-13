@@ -18,7 +18,7 @@ variable "cloudtrail_bucket_arn" {
   type        = string
   default     = ""
 }
-variable "var.excluded_rds_db_arn" {
+variable "excluded_rds_db_arn" {
   type        = string
   description = "The List of ARNs for the RDS that shouldn't be monitored."
   default     = ""
