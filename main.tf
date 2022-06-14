@@ -47,12 +47,12 @@ resource "aws_iam_policy" "datadog-core" {
   path        = "/"
   description = "This IAM policy allows for core datadog integration permissions"
 
-  policy = <<EOF
+  policy = jsonencode(
 {
-  "Version": "2012-10-17",
-  "Statement": [
+  Version: "2012-10-17"
+  Statement: [
     {
-      "Action": [
+      Action: [
         "apigateway:GET",
         "autoscaling:Describe*",
         "budgets:ViewBudget",
@@ -126,24 +126,9 @@ resource "aws_iam_policy" "datadog-core" {
         "xray:BatchGetTraces",
         "xray:GetTraceSummaries"
       ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-EOF
-}
-
-resource "aws_iam_policy" "rds-datadog-policy" {
-  count       = var.enable_datadog_aws_integration ? 1 : 0
-  name        = "rds-datadog-integration"
-  path        = "/"
-  description = "This IAM policy allows for rds datadog integration permissions"
-
-  policy = jsonencode(
-{
-  Version: "2012-10-17"
-  Statement: [
+      Effect: "Allow",
+      Resource: "*"
+    },
     {
       Action: [
         "rds:DescribeDBInstances",
@@ -153,23 +138,19 @@ resource "aws_iam_policy" "rds-datadog-policy" {
 
       ],
       Effect: "Allow"
-      NotResource: var.excluded_rds
+      Resource: var.rds_prod_db
     }
   ]
-})
-
 }
+  )
+}
+
+
 
 resource "aws_iam_role_policy_attachment" "datadog-core-attach" {
   count      = var.enable_datadog_aws_integration ? 1 : 0
   role       = aws_iam_role.datadog-integration[0].name
   policy_arn = aws_iam_policy.datadog-core[0].arn
-}
-
-resource "aws_iam_role_policy_attachment" "datadog-rds-policy-attach" {
-  count      = var.enable_datadog_aws_integration ? 1 : 0
-  role       = aws_iam_role.datadog-integration[0].name
-  policy_arn = aws_iam_policy.rds-datadog-policy[0].arn
 }
 
 resource "aws_iam_role_policy_attachment" "datadog-core-attach-extras" {

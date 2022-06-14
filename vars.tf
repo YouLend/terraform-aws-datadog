@@ -99,7 +99,7 @@ variable "extra_policy_arns" {
   default     = []
 }
 
-variable "excluded_rds" {
+variable "rds_prod_db" {
   description = "exluded rds databases that should not be monitored"
   type        = list(string)
   default     = [""]
