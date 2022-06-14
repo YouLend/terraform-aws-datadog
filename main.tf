@@ -131,11 +131,8 @@ resource "aws_iam_policy" "datadog-core" {
     },
     {
       Action: [
-        "rds:DescribeDBInstances",
-        "rds:DescribeDBClusters",
-        "rds:ListTagsForResource",
-        "rds:DescribeEvents",
-
+        "rds:Describe*",
+        "rds:List*"
       ],
       Effect: "Allow"
       Resource: var.rds_prod_db
