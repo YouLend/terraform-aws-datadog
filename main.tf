@@ -10,7 +10,7 @@ resource "datadog_integration_aws" "core" {
   account_specific_namespace_rules = var.account_specific_namespace_rules
   excluded_regions                 = var.excluded_regions
   filter_tags                      = var.filter_tags
-  resource_collection_enabled      = var.resource_collection_enabled
+  extended_resource_collection_enabled      = var.extended_resource_collection_enabled
   metrics_collection_enabled       = var.metrics_collection_enabled
   cspm_resource_collection_enabled = var.cspm_resource_collection_enabled
 }
