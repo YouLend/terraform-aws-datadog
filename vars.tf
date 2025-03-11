@@ -66,7 +66,7 @@ variable "metrics_collection_enabled" {
   description = "Whether Datadog collects metrics for this AWS account."
   type        = string
 }
-variable "resource_collection_enabled" {
+variable "extended_resource_collection_enabled" {
   description = "Whether Datadog collects a standard set of resources from your AWS account."
   type        = string
 }
